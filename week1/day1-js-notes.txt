@@ -1,0 +1,62 @@
+JavaScript Notes — Day 1 (Execution Context + Hoisting)
+
+🔹 JavaScript Runtime Model
+- JavaScript is a synchronous, single-threaded language.
+- Code runs inside something called an Execution Context, which is created for:
+  - Global code (Global Execution Context - GEC)
+  - Each function call (Function Execution Context)
+
+🔹 Execution Context Phases
+Each execution context has:
+1. Memory Component (Variable Environment):
+   - Variables (with var) are stored as undefined.
+   - Function declarations are stored with their complete definitions.
+
+2. Code Component (Thread of Execution):
+   - Executes line by line.
+   - Updates variable values, and calls functions (which creates new contexts).
+
+🔹 Call Stack
+- Manages execution contexts in a LIFO (Last In First Out) stack.
+- The Global Execution Context (GEC) is pushed first.
+- Each function call creates a new Execution Context which is pushed.
+- When a function returns, its context is popped off the stack.
+
+Example:
+main() {
+  greet();
+}
+
+greet() {
+  console.log("Hi");
+}
+
+Call Stack:
+| greet EC |
+| main EC  |
+| GEC      |
+
+🔹 Hoisting
+- JavaScript allows you to use variables and functions before declaration — this behavior is called Hoisting.
+- During the memory phase, variables declared with var are hoisted with value undefined.
+- Function declarations are hoisted with their full definition.
+- let, const, and class declarations are hoisted but placed in the Temporal Dead Zone (TDZ):
+  - Accessing them before declaration throws a ReferenceError.
+
+Example:
+console.log(a); // undefined
+var a = 5;
+
+console.log(b); // ReferenceError
+let b = 10;
+
+foo(); // works
+function foo() { console.log("Hello!"); }
+
+bar(); // TypeError
+var bar = function () { console.log("Bye"); };
+
+🟢 ✅ Day 1 Status:
+- [x] Conceptual notes complete ✅
+- [x] Code pushed on scope-hoisting.js
+- [x] progress.md updated
